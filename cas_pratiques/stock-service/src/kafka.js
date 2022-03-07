@@ -1,7 +1,7 @@
 import {Kafka} from 'kafkajs'
 
 const kafka = new Kafka({
-    clientId: 'orchestrator',
+    clientId: 'stock-service',
     brokers: ['localhost:9092'],
     retry: {
         initialRetryTime: 1000,

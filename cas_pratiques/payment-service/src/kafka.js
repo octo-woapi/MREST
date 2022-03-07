@@ -1,7 +1,7 @@
 import {Kafka} from 'kafkajs'
 
 const kafka = new Kafka({
-    clientId: 'orchestrator',
+    clientId: 'payment-service',
     brokers: ['localhost:9092'],
     retry: {
         initialRetryTime: 1000,
@@ -9,9 +9,9 @@ const kafka = new Kafka({
     }
 })
 
-const consumer = kafka.consumer({groupId: 'order-service-consumer'})
+const consumer = kafka.consumer({groupId: 'stock-service-consumer'})
 consumer.connect()
-consumer.subscribe({topic: 'order'})
+consumer.subscribe({topic: 'stock'})
 const producer = kafka.producer()
 producer.connect()
 

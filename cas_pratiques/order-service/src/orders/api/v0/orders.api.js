@@ -141,12 +141,15 @@ export default function (router, container) {
      *           schema:
      *             type: object
      *             properties:
+     *               client_id:
+     *                 type: string
      *               item_id:
      *                 type: string
      *               quantity:
      *                 type: integer
      *             required:
-     *               - item_id
+     *               - clientId
+     *               - itemId
      *               - quantity
      *     responses:
      *       201:
@@ -159,8 +162,10 @@ export default function (router, container) {
      *         description: Some server error
      */
     router.post('/v0/orders/',
-        body('item_id').trim().notEmpty().withMessage('item_id property must be provided'),
-        body('item_id').trim().isString().withMessage('item_id property must be a string'),
+        body('itemId').trim().notEmpty().withMessage('itemId property must be provided'),
+        body('itemId').trim().isString().withMessage('itemId property must be a string'),
+        body('clientId').trim().notEmpty().withMessage('clientId property must be provided'),
+        body('clientId').trim().isString().withMessage('clientId property must be a string'),
         body('quantity').trim().notEmpty().withMessage('quantity property must be provided'),
         body('quantity').trim().isNumeric().withMessage('quantity property must be an integer'),
         async function (req, res) {
@@ -168,7 +173,14 @@ export default function (router, container) {
             if (!errors.isEmpty()) return res.boom.badRequest(errors.array().map(element => element.msg))
 
             try {
-                res.status(201).send(await container.CreateOrder(req.body.item_id, req.body.quantity))
+                const result = await container.CreateOrder(req.body.clientId, req.body.itemId, req.body.quantity)
+                res.status(201).send({
+                    id: result.id,
+                    clientId: result.clientId,
+                    itemId: result.itemId,
+                    quantity: parseInt(result.quantity),
+                    status: result.status
+                })
             } catch (error) {
                 res.boom.internal(error)
             }

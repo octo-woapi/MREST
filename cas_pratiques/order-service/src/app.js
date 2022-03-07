@@ -1,14 +1,14 @@
 import cors from 'cors'
 import express from 'express'
+import messageBroker from './kafka.js'
 import boom from 'express-boom'
 import logger from 'express-pino-logger'
-
 import bodyParser from 'body-parser'
 import swaggerJsdoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
+import {messagesConsumer, routes} from './interfaces.js'
 
 import config from './config.js'
-import ordersRoutes from './routes.js'
 
 const api_url = `http://localhost:${config.get('APP_PORT')}`
 
@@ -37,11 +37,15 @@ const options = {
     },
     apis: ['./src/orders/api/v0/orders.api.js'],
 }
-const specs = swaggerJsdoc(options)
 
+const specs = swaggerJsdoc(options)
 const app = express()
 
-function init () {
+const consume = async () => {
+    await messageBroker.consumer.run({eachMessage: messagesConsumer})
+}
+
+function listen () {
     app.use(cors())
     app.use(logger())
     app.use(express.urlencoded({ extended: true }))
@@ -55,10 +59,10 @@ function init () {
         })
     )
 
-    ordersRoutes.use('/api-docs', swaggerUi.serve)
-    ordersRoutes.get('/api-docs', swaggerUi.setup(specs))
+    routes.use('/api-docs', swaggerUi.serve)
+    routes.get('/api-docs', swaggerUi.setup(specs))
 
-    app.use(ordersRoutes)
+    app.use(routes)
     app.use(function(req,res){
         res.boom.notFound(`Could not find resource ${req.path}`)
     })
@@ -66,6 +70,11 @@ function init () {
     app.listen(config.get('APP_PORT'), () => {
         console.log(`Express server listening on ${api_url}`)
     })
+}
+
+function init() {
+    consume().catch(console.error)
+    listen()
 }
 
 init()

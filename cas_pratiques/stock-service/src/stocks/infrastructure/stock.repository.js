@@ -1,10 +1,10 @@
 const stocks = [
-    { id: 1, units: 231 },
-    { id: 2, units: 644 },
-    { id: 3, units: 89 },
-    { id: 4, units: 964 },
-    { id: 5, units: 142 },
-    { id: 6, units: 354 }
+    {id: 'brow', units: 231},
+    {id: 'coke', units: 644 },
+    {id: 'acid', units: 89 },
+    {id: 'crys', units: 964 },
+    {id: 'cake', units: 142 },
+    {id: 'bloo', units: 354 }
 ]
 
 export class StockRepository {

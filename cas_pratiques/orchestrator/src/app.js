@@ -7,7 +7,7 @@ import bodyParser from 'body-parser'
 import swaggerJsdoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
 
-import kafka from './kafka.js'
+import messageBroker from './kafka.js'
 import config from './config.js'
 import { messagesHandler, routes } from './interfaces.js'
 
@@ -43,10 +43,7 @@ const specs = swaggerJsdoc(options)
 const app = express()
 
 const consume = async () => {
-    const consumer = kafka.consumer({ groupId: 'order-service-consumer' })
-    await consumer.connect()
-    await consumer.subscribe({ topic: 'order', fromBeginning: true })
-    await consumer.run({ eachMessage: messagesHandler })
+    await messageBroker.consumer.run({eachMessage: messagesHandler})
 }
 
 const listen = () => {

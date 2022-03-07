@@ -107,7 +107,7 @@ export default function (router, container) {
             }
 
             try {
-                await container.UpdateStock(parseInt(req.params.id), parseInt(req.body.units))
+                await container.UpdateStock(req.params.id, parseInt(req.body.units))
                 res.status(204).send()
             } catch (error) {
                 switch (true) {

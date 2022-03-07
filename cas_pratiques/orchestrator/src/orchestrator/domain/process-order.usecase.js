@@ -1,6 +1,6 @@
 export function createProcessOrderUsecaseFactory () {
-    return async (orderId, itemId, quantity) => {
-        return { orderId, itemId, quantity }
+    return async (clientId, orderId, itemId, quantity) => {
+        return { clientId, orderId, itemId, quantity }
         //throw new OrderProcessFailedError(orderId)
     }
 }

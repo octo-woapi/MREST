@@ -21,6 +21,7 @@
     "express-boom": "^3.0.0",
     "express-pino-logger": "^7.0.0",
     "express-validator": "^6.14.0",
+    "kafkajs": "^1.16.0",
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.3.0"
   },

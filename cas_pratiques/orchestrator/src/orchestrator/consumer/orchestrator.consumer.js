@@ -3,8 +3,9 @@ export default function (container) {
         const { event, payload } = parseMessage(message)
 
         switch (event) {
-        case event === 'created':
+        case 'created':
             return await container.ProcessOrder(
+                payload.clientId,
                 payload.orderId,
                 payload.itemId,
                 payload.quantity
@@ -19,6 +20,7 @@ const parseMessage = (message) => {
     const event = message.key.toString()
     const valueObject = JSON.parse(message.value.toString())
     const payload = {
+        clientId: valueObject.clientId,
         orderId: parseInt(valueObject.orderId),
         itemId: valueObject.itemId,
         quantity: parseInt(valueObject.quantity)
