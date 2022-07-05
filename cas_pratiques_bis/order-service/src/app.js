@@ -1,11 +1,15 @@
+import esMain from 'es-main'
 import express from 'express'
-const app = express()
 import boom from 'express-boom'
 import config from './config.js'
 import logger from 'express-pino-logger'
 import cors from 'cors'
 import messageBroker from './kafka.js'
 import {messagesConsumer, routes} from './interfaces.js'
+
+const app = express()
+
+const TOPIC_WELCOME = 'topic-welcome'
 
 const consume = async () => {
     await messageBroker.consumer.run({eachMessage: messagesConsumer})
@@ -27,10 +31,32 @@ function listen () {
     })
 }
 
-function init() {
-    consume().catch(console.error)
-    listen()
+async function initTopic() {
+    await produceWelcomeMessage()
 }
 
+async function produceWelcomeMessage() {
+    await messageBroker.producer.connect()
+    await messageBroker.producer.send({
+        topic: TOPIC_WELCOME,
+        messages: [
+            {key: '01', value: 'Welcome to the ORDER Service'},
+        ],
+    })
+}
 
-init()
+async function init() {
+    consume().catch(console.error)
+    listen()
+    await initTopic()
+}
+
+if (esMain(import.meta)) {
+    // Module run directly.
+    init().catch(
+        (err) => {
+            console.error(err)
+            process.exit(1)
+        }
+    )
+}

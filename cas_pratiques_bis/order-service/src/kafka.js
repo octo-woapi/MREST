@@ -1,4 +1,4 @@
-import {Kafka} from 'kafkajs'
+import {Kafka, Partitioners} from 'kafkajs'
 
 const kafka = new Kafka({
     clientId: 'order-service',
@@ -8,7 +8,9 @@ const kafka = new Kafka({
 const consumer = kafka.consumer({groupId: 'payment-service-consumer'})
 consumer.connect()
 consumer.subscribe({topic: 'payment'})
-const producer = kafka.producer()
-producer.connect()
+
+const producer = kafka.producer({
+    createPartitioner: Partitioners.LegacyPartitioner
+})
 
 export default { consumer, producer }
