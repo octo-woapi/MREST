@@ -25,3 +25,7 @@ yarn install --frozen-lockfile
 ```bash
 yarn start
 ```
+la documentation swagger est dispo sous l'url /api-docs
+
+exemple :http://localhost:8092/api-docs
+
