@@ -19,6 +19,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
+@AllArgsConstructor
 public class AbonnementController {
 
   private final AbonnementApiMapper abonnementApiMapper;
@@ -48,35 +50,13 @@ public class AbonnementController {
   private final RecuperDesSouscriptionAbonnements recuperDesSouscriptionAbonnements;
   private final RecuperLeChiffreDAffaireDeLaFinDePeriode recuperLeChiffreDAffaireDeLaFinDePeriode;
 
-  AbonnementController(
-      AbonnementApiMapper abonnementApiMapper,
-      SouscriptionAbonnementApiMapper souscriptionAbonnementApiMapper,
-      RecupererUnAbonnement recupererUnAbonnement,
-      RecupererTousLesAbonnements recupererTousLesAbonnements,
-      CreerUnAbonnement creerUnAbonnement,
-      RenouvelerDesAbonnements renouvelerDesAbonnements,
-      EnvoyerUnEmailDeSouscription envoyerUnEmailDeSouscription,
-      RecuperDesSouscriptionAbonnements recuperDesSouscriptionAbonnements,
-      RecuperLeChiffreDAffaireDeLaFinDePeriode recuperLeChiffreDAffaireDeLaFinDePeriode) {
-
-    this.abonnementApiMapper = abonnementApiMapper;
-    this.souscriptionAbonnementApiMapper = souscriptionAbonnementApiMapper;
-    this.recupererUnAbonnement = recupererUnAbonnement;
-    this.recupererTousLesAbonnements = recupererTousLesAbonnements;
-    this.creerUnAbonnement = creerUnAbonnement;
-    this.renouvelerDesAbonnements = renouvelerDesAbonnements;
-    this.envoyerUnEmailDeSouscription = envoyerUnEmailDeSouscription;
-    this.recuperDesSouscriptionAbonnements = recuperDesSouscriptionAbonnements;
-    this.recuperLeChiffreDAffaireDeLaFinDePeriode = recuperLeChiffreDAffaireDeLaFinDePeriode;
-  }
-
   @Operation(summary = ("Récupération d'un abonnement depuis son ID"))
   @ApiResponses({
-    @ApiResponse(
-        responseCode = "200",
-        description = "L'abonnement a été trouvé",
-        content = @Content(schema = @Schema(implementation = AbonnementApi.class))),
-    @ApiResponse(responseCode = "404", description = "L'abonnement n'a pas été trouvé")
+      @ApiResponse(
+          responseCode = "200",
+          description = "L'abonnement a été trouvé",
+          content = @Content(schema = @Schema(implementation = AbonnementApi.class))),
+      @ApiResponse(responseCode = "404", description = "L'abonnement n'a pas été trouvé")
   })
   @GetMapping(value = "/abonnements/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<AbonnementApi> recupererUnAbonnement(@PathVariable Long id) {
@@ -86,10 +66,10 @@ public class AbonnementController {
 
   @Operation(summary = ("Récupération de tous les abonnements"))
   @ApiResponses({
-    @ApiResponse(
-        responseCode = "200",
-        description = "La liste des abonnements trouvés",
-        content = @Content(schema = @Schema(allOf = AbonnementApi.class))),
+      @ApiResponse(
+          responseCode = "200",
+          description = "La liste des abonnements trouvés",
+          content = @Content(schema = @Schema(allOf = AbonnementApi.class))),
   })
   @GetMapping(value = "/abonnements", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<AbonnementApi>> recupererTousLesAbonnements() {
@@ -102,11 +82,11 @@ public class AbonnementController {
 
   @Operation(summary = ("Création d'un abonnement à partir d'une formule existante"))
   @ApiResponses({
-    @ApiResponse(
-        responseCode = "201",
-        description = "L'abonnement a été créé",
-        content = @Content(schema = @Schema(implementation = AbonnementApi.class))),
-    @ApiResponse(responseCode = "404", description = "La formule n'a pas été trouvée")
+      @ApiResponse(
+          responseCode = "201",
+          description = "L'abonnement a été créé",
+          content = @Content(schema = @Schema(implementation = AbonnementApi.class))),
+      @ApiResponse(responseCode = "404", description = "La formule n'a pas été trouvée")
   })
   @PostMapping(value = "/abonnements", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<AbonnementApi> creerUnAbonnement(@RequestBody AbonnementApi abonnementApi) {
@@ -118,18 +98,18 @@ public class AbonnementController {
   @Operation(
       summary = ("Renouvellement des abonnements concernés à partir d'une date de fin de période"))
   @ApiResponses({
-    @ApiResponse(
-        responseCode = "200",
-        description = "La liste des abonnements qui ont été renouvelés",
-        content = @Content(schema = @Schema(allOf = AbonnementApi.class))),
+      @ApiResponse(
+          responseCode = "200",
+          description = "La liste des abonnements qui ont été renouvelés",
+          content = @Content(schema = @Schema(allOf = AbonnementApi.class))),
   })
   @PutMapping(value = "/abonnements/renouvellement", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<AbonnementApi>> renouvelerDesAbonnements(
       @Parameter(
-              description = "La date de fin de période d'abonnement",
-              example = "2022-06-01",
-              required = true)
-          @RequestBody
+          description = "La date de fin de période d'abonnement",
+          example = "2022-06-01",
+          required = true)
+      @RequestBody
           String dateDeRenouvellement) {
     return ResponseEntity.status(OK)
         .body(
@@ -140,11 +120,11 @@ public class AbonnementController {
 
   @Operation(summary = ("Envoie d'un e-mail de souscription à un abonnement depuis son ID"))
   @ApiResponses({
-    @ApiResponse(
-        responseCode = "201",
-        description = "La souscription à un abonnement qui a été envoyée",
-        content = @Content(schema = @Schema(implementation = SouscriptionAbonnementApi.class))),
-    @ApiResponse(responseCode = "404", description = "L'abonnement n'a pas été trouvé")
+      @ApiResponse(
+          responseCode = "201",
+          description = "La souscription à un abonnement qui a été envoyée",
+          content = @Content(schema = @Schema(implementation = SouscriptionAbonnementApi.class))),
+      @ApiResponse(responseCode = "404", description = "L'abonnement n'a pas été trouvé")
   })
   @PostMapping(
       value = "/abonnements/{id}/email-de-souscription",
@@ -161,13 +141,13 @@ public class AbonnementController {
 
   @Operation(summary = ("Récupération de toutes les souscriptions à un abonnement depuis son ID"))
   @ApiResponses({
-    @ApiResponse(
-        responseCode = "200",
-        description = "La liste des souscriptions à un abonnement qui ont été sauvegardées",
-        content = @Content(schema = @Schema(allOf = SouscriptionAbonnementApi.class))),
-    @ApiResponse(
-        responseCode = "404",
-        description = "Les souscriptions à cet abonnement n'ont pas été trouvées")
+      @ApiResponse(
+          responseCode = "200",
+          description = "La liste des souscriptions à un abonnement qui ont été sauvegardées",
+          content = @Content(schema = @Schema(allOf = SouscriptionAbonnementApi.class))),
+      @ApiResponse(
+          responseCode = "404",
+          description = "Les souscriptions à cet abonnement n'ont pas été trouvées")
   })
   @GetMapping(
       value = "/abonnements/{id}/email-de-souscription",
@@ -183,13 +163,13 @@ public class AbonnementController {
 
   @Operation(summary = ("Récupération du chiffres d'affaire à partir d'une date de fin de période"))
   @ApiResponses({
-    @ApiResponse(
-        responseCode = "200",
-        description = "Le chiffre d'affaire calculé",
-        content =
-            @Content(
-                schema = @Schema(implementation = Double.class),
-                examples = @ExampleObject(value = "320.0")))
+      @ApiResponse(
+          responseCode = "200",
+          description = "Le chiffre d'affaire calculé",
+          content =
+          @Content(
+              schema = @Schema(implementation = Double.class),
+              examples = @ExampleObject(value = "320.0")))
   })
   @GetMapping(value = "/abonnements/chiffre-d-affaire", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Double> recuperLeChiffreDAffaireDeLaFinDePeriode(

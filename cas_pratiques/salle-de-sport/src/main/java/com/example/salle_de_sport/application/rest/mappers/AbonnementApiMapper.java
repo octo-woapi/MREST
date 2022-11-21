@@ -19,7 +19,7 @@ public class AbonnementApiMapper {
     return new AbonnementApi(
         abonnement.getId(),
         abonnement.getEmail(),
-        abonnement.estEtudiant(),
+        abonnement.getEstEtudiant(),
         abonnement.getDateDeDebut(),
         formuleApiMapper.convertirEnFormuleApi(abonnement.getFormuleChoisie()),
         abonnement.getPrix(),
@@ -30,7 +30,7 @@ public class AbonnementApiMapper {
     return new Abonnement(
         abonnementApi.getId(),
         abonnementApi.getEmail(),
-        abonnementApi.getIsEtudiant(),
+        abonnementApi.isEstEtudiant(),
         abonnementApi.getDateDeDebut(),
         formuleApiMapper.convertirEnFormule(abonnementApi.getFormuleApiChoisie()),
         abonnementApi.getPrix(),

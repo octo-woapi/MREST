@@ -1,43 +1,40 @@
 package com.example.salle_de_sport.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
+@Getter
+@Setter
+@ToString
 public class Abonnement {
 
   private Long id;
   private String email;
-  private Boolean isEtudiant;
+  @JsonProperty("estEtudiant")
+  private Boolean estEtudiant;
   private String dateDeDebut;
   private Formule formuleChoisie;
   private Double prix;
 
   private List<Periode> periodes = new ArrayList<>();
 
-  public Abonnement() {}
 
-  public Abonnement(
-      Long id,
-      String email,
-      Boolean isEtudiant,
-      String dateDeDebut,
-      Formule formuleChoisie,
-      Double prix,
-      List<Periode> periodes) {
-    this.id = id;
-    this.email = email;
-    this.isEtudiant = isEtudiant;
-    this.dateDeDebut = dateDeDebut;
-    this.formuleChoisie = formuleChoisie;
-    this.prix = prix;
-    this.periodes = periodes;
-  }
 
-  public Abonnement(String email, boolean isEtudiant, String dateDeDebut, Formule formuleChoisie) {
+  public Abonnement(String email, boolean estEtudiant, String dateDeDebut, Formule formuleChoisie) {
     this.email = email;
-    this.isEtudiant = isEtudiant;
+    this.estEtudiant = estEtudiant;
     this.dateDeDebut = dateDeDebut;
     this.formuleChoisie = formuleChoisie;
   }
@@ -75,95 +72,5 @@ public class Abonnement {
             .getMonths();
 
     return new Periode(dateDeFin.unJourApres().toString(), nbrDeMoisDansLaPeriodeCourante);
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public Boolean estEtudiant() {
-    return isEtudiant;
-  }
-
-  public String getDateDeDebut() {
-    return dateDeDebut;
-  }
-
-  public Formule getFormuleChoisie() {
-    return formuleChoisie;
-  }
-
-  public void setFormuleChoisie(Formule formuleChoisie) {
-    this.formuleChoisie = formuleChoisie;
-  }
-
-  public Double getPrix() {
-    return prix;
-  }
-
-  public void setPrix(Double prix) {
-    this.prix = prix;
-  }
-
-  public List<Periode> getPeriodes() {
-    return periodes;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof Abonnement)) return false;
-    Abonnement that = (Abonnement) o;
-    return getId().equals(that.getId())
-        && getEmail().equals(that.getEmail())
-        && isEtudiant.equals(that.estEtudiant())
-        && getDateDeDebut().equals(that.getDateDeDebut())
-        && getFormuleChoisie().equals(that.getFormuleChoisie())
-        && getPrix().equals(that.getPrix())
-        && getPeriodes().equals(that.getPeriodes());
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(
-        getId(),
-        getEmail(),
-        estEtudiant(),
-        getDateDeDebut(),
-        getFormuleChoisie(),
-        getPrix(),
-        getPeriodes());
-  }
-
-  @Override
-  public String toString() {
-    return "Abonnement{"
-        + "id="
-        + id
-        + ", email="
-        + email
-        + ", isEtudiant="
-        + isEtudiant
-        + ", dateDeDebut="
-        + dateDeDebut
-        + ", formuleChoisie="
-        + formuleChoisie
-        + ", prix="
-        + prix
-        + ", periodes="
-        + periodes
-        + '}';
   }
 }

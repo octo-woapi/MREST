@@ -5,22 +5,18 @@ import com.example.salle_de_sport.domain.models.Abonnement;
 import com.example.salle_de_sport.domain.models.Formule;
 import com.example.salle_de_sport.domain.models.Periode;
 import com.example.salle_de_sport.domain.models.Reduction;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@AllArgsConstructor
 public class CreerUnAbonnement {
 
   private final FormulePersistence formulePersistence;
   private final AbonnementPersistence abonnementPersistence;
-
-  public CreerUnAbonnement(
-      FormulePersistence formulePersistence, AbonnementPersistence abonnementPersistence) {
-    this.formulePersistence = formulePersistence;
-    this.abonnementPersistence = abonnementPersistence;
-  }
 
   public Abonnement executer(final Abonnement abonnement) {
     Formule formule =
@@ -32,14 +28,14 @@ public class CreerUnAbonnement {
     List<Periode> periodes = new ArrayList<>();
     periodes.add(new Periode(abonnement.getDateDeDebut(), formule.getNbrDeMois()));
 
-    Reduction reduction = new Reduction(abonnement.estEtudiant());
+    Reduction reduction = new Reduction(abonnement.getEstEtudiant());
     abonnement.setPrix(reduction.calculer(formule.getPrixDeBase()));
 
     Abonnement nouvelAbonnement =
         new Abonnement(
             null,
             abonnement.getEmail(),
-            abonnement.estEtudiant(),
+            abonnement.getEstEtudiant(),
             abonnement.getDateDeDebut(),
             formule,
             reduction.calculer(formule.getPrixDeBase()),

@@ -34,7 +34,7 @@ public class AbonnementApiTestBuilder {
       return new AbonnementApi(
           this.abonnement.getId(),
           this.abonnement.getEmail(),
-          this.abonnement.estEtudiant(),
+          this.abonnement.getEstEtudiant(),
           this.abonnement.getDateDeDebut(),
           FormuleApiTestBuilder.uneFormuleApi()
               .avecFormule(this.abonnement.getFormuleChoisie())
