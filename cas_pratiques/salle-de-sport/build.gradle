@@ -21,8 +21,8 @@ repositories {
 ext {
 	logbackVersion = '1.2.10'
 	logbackContribVersion = '0.1.5'
-	lombokVersion = '1.18.22'
-	springdocVersion = '1.6.5'
+	lombokVersion = '1.18.24'
+	springdocVersion = '1.6.12'
 }
 
 dependencies {
