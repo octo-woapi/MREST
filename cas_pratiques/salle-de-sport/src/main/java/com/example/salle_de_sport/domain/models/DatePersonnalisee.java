@@ -1,10 +1,12 @@
 package com.example.salle_de_sport.domain.models;
 
+import lombok.EqualsAndHashCode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Objects;
 
+
+@EqualsAndHashCode
 public final class DatePersonnalisee {
 
   private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
@@ -49,19 +51,6 @@ public final class DatePersonnalisee {
 
   public LocalDate toLocalDate() {
     return this.date;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof DatePersonnalisee)) return false;
-    DatePersonnalisee that = (DatePersonnalisee) o;
-    return date.equals(that.date);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(date);
   }
 
   @Override

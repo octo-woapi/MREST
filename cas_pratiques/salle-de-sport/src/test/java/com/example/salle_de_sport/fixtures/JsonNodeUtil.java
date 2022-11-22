@@ -56,9 +56,9 @@ public class JsonNodeUtil {
     List<SouscriptionAbonnementApi> souscriptionAbonnementApis = new ArrayList<>();
     if (this.jsonNode != null) {
       this.jsonNode.forEach(
-              jsonNode -> {
-                souscriptionAbonnementApis.add(this.getSouscriptionAbonnementApiFromJsonNode(jsonNode));
-              });
+          jsonNode -> {
+            souscriptionAbonnementApis.add(this.getSouscriptionAbonnementApiFromJsonNode(jsonNode));
+          });
     }
     return souscriptionAbonnementApis;
   }
@@ -67,7 +67,7 @@ public class JsonNodeUtil {
     return new AbonnementApi(
         jsonNode.get("id").asLong(),
         jsonNode.get("email").asText(),
-        jsonNode.get("isEtudiant").asBoolean(),
+        jsonNode.get("estEtudiant").asBoolean(),
         jsonNode.get("dateDeDebut").asText(),
         this.toFormuleApiChoisie(jsonNode.get("formuleApiChoisie")),
         jsonNode.get("prix").asDouble(),

@@ -36,7 +36,7 @@ public class AbonnementDatabaseJdbc implements AbonnementPersistence {
   @Transactional
   public Optional<Abonnement> recupererUnAbonnement(Long id) {
     return abonnementRepository.findById(id)
-            .map(abonnementMapper::convertirEnAbonnement);
+        .map(abonnementMapper::convertirEnAbonnement);
   }
 
   @Override
@@ -54,7 +54,7 @@ public class AbonnementDatabaseJdbc implements AbonnementPersistence {
         abonnementRepository.save(
             new AbonnementEntity(
                 abonnement.getEmail(),
-                abonnement.estEtudiant(),
+                abonnement.getEstEtudiant(),
                 abonnement.getDateDeDebut(),
                 formuleMapper.convertirEnFormuleEntity(abonnement.getFormuleChoisie()),
                 abonnement.getPrix(),

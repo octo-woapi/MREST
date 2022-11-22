@@ -21,8 +21,8 @@ public class AbonnementMapper {
 
   public Abonnement convertirEnAbonnement(AbonnementEntity abonnementEntity) {
     List<Periode> periodes = abonnementEntity.getPeriodeEntities().stream()
-            .map(this.periodeMapper::convertirEnPeriode)
-            .collect(Collectors.toList());
+        .map(this.periodeMapper::convertirEnPeriode)
+        .collect(Collectors.toList());
 
     Abonnement abonnement = new Abonnement(
         abonnementEntity.getId(),
@@ -39,7 +39,7 @@ public class AbonnementMapper {
     return new AbonnementEntity(
         abonnement.getId(),
         abonnement.getEmail(),
-        abonnement.estEtudiant(),
+        abonnement.getEstEtudiant(),
         abonnement.getDateDeDebut(),
         this.formuleMapper.convertirEnFormuleEntity(abonnement.getFormuleChoisie()),
         abonnement.getPrix(),
