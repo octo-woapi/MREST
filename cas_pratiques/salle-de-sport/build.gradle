@@ -11,7 +11,7 @@ java {
 	}
 }
 
-group = 'com.example.salle-de-sport'
+group = 'com.example.formule-service'
 version = '0.0.1-SNAPSHOT'
 
 repositories {
@@ -31,6 +31,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+	implementation "org.springframework.boot:spring-boot-starter-webflux:${globalSpringBootVersion}"
 
 	implementation "ch.qos.logback:logback-classic:${logbackVersion}"
 	implementation "ch.qos.logback.contrib:logback-json-classic:${logbackContribVersion}"
