@@ -32,7 +32,6 @@ public class FormuleDatabaseJdbc implements FormulePersistence {
 
   @Override
   public Formule creerUneFormule(final Formule formule) {
-    System.out.println("FS");
     return formuleMapper.convertirEnFormule(
         formuleRepository.save(formuleMapper.convertirEnFormuleEntity(formule)));
   }

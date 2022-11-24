@@ -38,22 +38,22 @@ public class FormuleController {
   private final CreerUneFormule creerUneFormule;
   private final ModifierLePrixDuneFormule modifierLePrixDuneFormule;
 
-//  @Operation(summary = ("Récupération d'une formule depuis son ID"))
-//  @ApiResponses({
-//      @ApiResponse(
-//          responseCode = "200",
-//          description = "La formule a été trouvée",
-//          content = @Content(schema = @Schema(implementation = FormuleApi.class))),
-//      @ApiResponse(
-//          responseCode = "404",
-//          description = "La formule n'a pas été trouvée",
-//          content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
-//  })
-//  @GetMapping(value = "/formules/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-//  public ResponseEntity<FormuleApi> recuperUneFormule(@PathVariable Long id) {
-//    return ResponseEntity.status(OK)
-//        .body(formuleApiMapper.convertirEnFormuleApi(recupererUneFormule.executer(id)));
-//  }
+  @Operation(summary = ("Récupération d'une formule depuis son ID"))
+  @ApiResponses({
+      @ApiResponse(
+          responseCode = "200",
+          description = "La formule a été trouvée",
+          content = @Content(schema = @Schema(implementation = FormuleApi.class))),
+      @ApiResponse(
+          responseCode = "404",
+          description = "La formule n'a pas été trouvée",
+          content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
+  })
+  @GetMapping(value = "/formules/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<FormuleApi> recuperUneFormule(@PathVariable Long id) {
+    return ResponseEntity.status(OK)
+        .body(formuleApiMapper.convertirEnFormuleApi(recupererUneFormule.executer(id)));
+  }
 
   @Operation(summary = ("Récupération de toutes les formules"))
   @ApiResponses({

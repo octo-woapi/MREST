@@ -65,7 +65,6 @@ public class FormuleController {
   })
   @GetMapping(value = "/formules", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<FormuleApi>> recupererToutesLesFormules() {
-    System.out.println("passer par formule service");
     return ResponseEntity.status(OK)
         .body(
             recupererToutesLesFormules.executer().stream()
