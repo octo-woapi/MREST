@@ -1,12 +1,12 @@
-package com.example.salle_de_sport.application.rest.controllers;
+package com.example.formule_service.application.rest.controllers;
 
-import com.example.salle_de_sport.application.rest.mappers.FormuleApiMapper;
-import com.example.salle_de_sport.application.rest.models.FormuleApi;
-import com.example.salle_de_sport.domain.models.Formule;
-import com.example.salle_de_sport.domain.usecases.CreerUneFormule;
-import com.example.salle_de_sport.domain.usecases.ModifierLePrixDuneFormule;
-import com.example.salle_de_sport.domain.usecases.RecupererToutesLesFormules;
-import com.example.salle_de_sport.domain.usecases.RecupererUneFormule;
+import com.example.formule_service.application.rest.mappers.FormuleApiMapper;
+import com.example.formule_service.application.rest.models.FormuleApi;
+import com.example.formule_service.domain.models.Formule;
+import com.example.formule_service.domain.usecases.CreerUneFormule;
+import com.example.formule_service.domain.usecases.ModifierLePrixDuneFormule;
+import com.example.formule_service.domain.usecases.RecupererToutesLesFormules;
+import com.example.formule_service.domain.usecases.RecupererUneFormule;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -38,32 +38,34 @@ public class FormuleController {
   private final CreerUneFormule creerUneFormule;
   private final ModifierLePrixDuneFormule modifierLePrixDuneFormule;
 
-//  @Operation(summary = ("Récupération d'une formule depuis son ID"))
-//  @ApiResponses({
-//      @ApiResponse(
-//          responseCode = "200",
-//          description = "La formule a été trouvée",
-//          content = @Content(schema = @Schema(implementation = FormuleApi.class))),
-//      @ApiResponse(
-//          responseCode = "404",
-//          description = "La formule n'a pas été trouvée",
-//          content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
-//  })
-//  @GetMapping(value = "/formules/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-//  public ResponseEntity<FormuleApi> recuperUneFormule(@PathVariable Long id) {
-//    return ResponseEntity.status(OK)
-//        .body(formuleApiMapper.convertirEnFormuleApi(recupererUneFormule.executer(id)));
-//  }
+
+  @Operation(summary = ("Récupération d'une formule depuis son ID"))
+  @ApiResponses({
+    @ApiResponse(
+        responseCode = "200",
+        description = "La formule a été trouvée",
+        content = @Content(schema = @Schema(implementation = FormuleApi.class))),
+    @ApiResponse(
+        responseCode = "404",
+        description = "La formule n'a pas été trouvée",
+        content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
+  })
+  @GetMapping(value = "/formules/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<FormuleApi> recuperUneFormule(@PathVariable Long id) {
+    return ResponseEntity.status(OK)
+        .body(formuleApiMapper.convertirEnFormuleApi(recupererUneFormule.executer(id)));
+  }
 
   @Operation(summary = ("Récupération de toutes les formules"))
   @ApiResponses({
-      @ApiResponse(
-          responseCode = "200",
-          description = "La liste de toutes les formules trouvées",
-          content = @Content(schema = @Schema(allOf = FormuleApi.class))),
+    @ApiResponse(
+        responseCode = "200",
+        description = "La liste de toutes les formules trouvées",
+        content = @Content(schema = @Schema(allOf = FormuleApi.class))),
   })
   @GetMapping(value = "/formules", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<FormuleApi>> recupererToutesLesFormules() {
+    System.out.println("passer par formule service");
     return ResponseEntity.status(OK)
         .body(
             recupererToutesLesFormules.executer().stream()
@@ -73,10 +75,10 @@ public class FormuleController {
 
   @Operation(summary = ("Création d'une formule"))
   @ApiResponses({
-      @ApiResponse(
-          responseCode = "201",
-          description = "La formule a été créée",
-          content = @Content(schema = @Schema(implementation = FormuleApi.class))),
+    @ApiResponse(
+        responseCode = "201",
+        description = "La formule a été créée",
+        content = @Content(schema = @Schema(implementation = FormuleApi.class))),
   })
   @PostMapping(value = "/formules", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<FormuleApi> creerUneFormule(@RequestBody FormuleApi formuleApi) {
@@ -87,14 +89,14 @@ public class FormuleController {
 
   @Operation(summary = ("Modification du prix d'une formule"))
   @ApiResponses({
-      @ApiResponse(
-          responseCode = "200",
-          description = "Le prix de la formule a été modifié",
-          content = @Content(schema = @Schema(implementation = FormuleApi.class))),
-      @ApiResponse(
-          responseCode = "404",
-          description = "La formule n'a pas été trouvée",
-          content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
+    @ApiResponse(
+        responseCode = "200",
+        description = "Le prix de la formule a été modifié",
+        content = @Content(schema = @Schema(implementation = FormuleApi.class))),
+    @ApiResponse(
+        responseCode = "404",
+        description = "La formule n'a pas été trouvée",
+        content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
   })
   @PutMapping(value = "/formules/{id}/prix", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<FormuleApi> modifierLePrixDuneFormule(

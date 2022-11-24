@@ -1,9 +1,9 @@
-package com.example.salle_de_sport.infrastructure.database;
+package com.example.formule_service.infrastructure.database;
 
-import com.example.salle_de_sport.domain.models.Formule;
-import com.example.salle_de_sport.domain.usecases.FormulePersistence;
-import com.example.salle_de_sport.infrastructure.database.mappers.FormuleMapper;
-import com.example.salle_de_sport.infrastructure.database.repositories.FormuleRepository;
+import com.example.formule_service.infrastructure.database.repositories.FormuleRepository;
+import com.example.formule_service.domain.models.Formule;
+import com.example.formule_service.domain.usecases.FormulePersistence;
+import com.example.formule_service.infrastructure.database.mappers.FormuleMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -32,6 +32,7 @@ public class FormuleDatabaseJdbc implements FormulePersistence {
 
   @Override
   public Formule creerUneFormule(final Formule formule) {
+    System.out.println("FS");
     return formuleMapper.convertirEnFormule(
         formuleRepository.save(formuleMapper.convertirEnFormuleEntity(formule)));
   }

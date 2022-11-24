@@ -8,8 +8,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 @AllArgsConstructor
-@EqualsAndHashCode
 @NoArgsConstructor
+@EqualsAndHashCode
 @ToString
 @Getter
 @Setter
