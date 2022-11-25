@@ -3,29 +3,39 @@ package com.example.salle_de_sport.domain.usecases;
 import com.example.salle_de_sport.domain.models.Formule;
 import com.example.salle_de_sport.infrastructure.database.DatabaseRepositoryTest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 import static com.example.salle_de_sport.fixtures.FormuleTestBuilder.uneFormule;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
-class RecupererToutesLesFormulesTest extends DatabaseRepositoryTest {
+@ExtendWith(MockitoExtension.class)
+class RecupererToutesLesFormulesTest {
 
-  @Autowired private RecupererToutesLesFormules recupererToutesLesFormules;
+  @InjectMocks
+  private RecupererToutesLesFormules recupererToutesLesFormules;
+  @Mock
+  private FormulePersistence formulePersistence;
 
   @Test
   void executer_devrait_renvoyer_toutes_les_formules_savegardees() {
     // Given
-    Formule premiereFormule =
-        creerUneFormuleEnBase(uneFormule().avecId(null).avecPrixDeBase(250.0).build());
-    Formule deuxiemeFormule =
-        creerUneFormuleEnBase(uneFormule().avecId(null).avecPrixDeBase(80.0).build());
+    Formule premiereFormule = uneFormule().avecPrixDeBase(250.0).build();
+    Formule deuxiemeFormule =uneFormule().avecPrixDeBase(80.0).build();
+    List<Formule> fomules = List.of(premiereFormule, deuxiemeFormule);
+
+    when(formulePersistence.recupererToutesLesFormules()).thenReturn(fomules);
 
     // When
     List<Formule> resultat = recupererToutesLesFormules.executer();
 
     // Then
-    assertThat(resultat).isEqualTo(List.of(premiereFormule, deuxiemeFormule));
+    assertThat(resultat).isEqualTo(fomules);
   }
 }

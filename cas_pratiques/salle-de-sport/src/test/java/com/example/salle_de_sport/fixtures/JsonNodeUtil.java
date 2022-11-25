@@ -78,7 +78,7 @@ public class JsonNodeUtil {
     return new FormuleApi(
         jsonNode.get("id").asLong(),
         jsonNode.get("prixDeBase").asDouble(),
-        jsonNode.get("nbrMois").asInt());
+        jsonNode.get("nbrDeMois").asInt());
   }
 
   private List<PeriodeApi> toPeriodeApis(JsonNode jsonNode) {
@@ -108,6 +108,6 @@ public class JsonNodeUtil {
     return new FormuleApi(
         jsonNode.get("id").asLong(),
         jsonNode.get("prixDeBase").asDouble(),
-        jsonNode.get("nbrMois").asInt());
+        jsonNode.get("nbrDeMois").asInt());
   }
 }

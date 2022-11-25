@@ -30,8 +30,8 @@ public class DatabaseLoaderConfiguration {
     AtomicInteger compteur = new AtomicInteger(1);
 
     return args -> {
-      //creerUneFormule.executer(new Formule(50.0, 6));
-      //creerUneFormule.executer(new Formule(100.0, 12));
+      creerUneFormule.executer(new Formule(50.0, 6));
+      creerUneFormule.executer(new Formule(100.0, 12));
 
       recupererToutesLesFormules
           .executer()
@@ -40,9 +40,9 @@ public class DatabaseLoaderConfiguration {
                 LOGGER.info("Création de la formule :" + formule);
 
                 String email = String.format("user_%s@example.net", compteur.getAndAdd(1));
-//                Abonnement abonnement =
-//                    creerUnAbonnement.executer(new Abonnement(email, true, "2022-01-01", formule));
-//                LOGGER.info("Création de l'abonnement : " + abonnement);
+                Abonnement abonnement =
+                    creerUnAbonnement.executer(new Abonnement(email, true, "2022-01-01", formule));
+                LOGGER.info("Création de l'abonnement : " + abonnement);
 //
 //                SouscriptionAbonnement souscriptionAbonnement =
 //                    envoyerUnEmailDeSouscription.executer(abonnement.getId(), email);

@@ -1,8 +1,8 @@
 package com.example.salle_de_sport.infrastructure.database;
 
 import com.example.salle_de_sport.domain.models.Formule;
+import com.example.salle_de_sport.infrastructure.api.formule_service.FormuleServicePersistanceWebClient;
 import com.example.salle_de_sport.infrastructure.database.repositories.AbonnementRepository;
-import com.example.salle_de_sport.infrastructure.database.repositories.FormuleRepository;
 import com.example.salle_de_sport.infrastructure.database.repositories.PeriodeRepository;
 import com.example.salle_de_sport.infrastructure.database.repositories.SouscriptionAbonnementRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -16,10 +16,9 @@ import javax.transaction.Transactional;
 @Transactional
 public abstract class DatabaseRepositoryTest {
 
-  @Autowired private FormuleDatabaseJdbc formuleDatabaseJdbc;
   @Autowired private AbonnementDatabaseJdbc abonnementDatabaseJdbc;
+  @Autowired private FormuleServicePersistanceWebClient formuleServicePersistanceWebClient;
 
-  @Autowired private FormuleRepository formuleRepository;
   @Autowired private AbonnementRepository abonnementRepository;
   @Autowired private PeriodeRepository periodeRepository;
   @Autowired private SouscriptionAbonnementRepository souscriptionAbonnementRepository;
@@ -38,10 +37,9 @@ public abstract class DatabaseRepositoryTest {
     souscriptionAbonnementRepository.deleteAllInBatch();
     periodeRepository.deleteAllInBatch();
     abonnementRepository.deleteAllInBatch();
-    formuleRepository.deleteAllInBatch();
   }
 
-  protected Formule creerUneFormuleEnBase(Formule formule) {
-    return formuleDatabaseJdbc.creerUneFormule(formule);
+  protected Formule creerUneFormule(Formule formule) {
+    return formuleServicePersistanceWebClient.creerUneFormule(formule);
   }
 }

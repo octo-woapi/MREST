@@ -4,7 +4,6 @@ import com.example.salle_de_sport.domain.models.Abonnement;
 import com.example.salle_de_sport.domain.usecases.AbonnementPersistence;
 import com.example.salle_de_sport.infrastructure.database.entities.AbonnementEntity;
 import com.example.salle_de_sport.infrastructure.database.mappers.AbonnementMapper;
-import com.example.salle_de_sport.infrastructure.database.mappers.FormuleMapper;
 import com.example.salle_de_sport.infrastructure.database.mappers.PeriodeMapper;
 import com.example.salle_de_sport.infrastructure.database.repositories.AbonnementRepository;
 import org.springframework.stereotype.Component;
@@ -18,17 +17,14 @@ public class AbonnementDatabaseJdbc implements AbonnementPersistence {
 
   private final AbonnementRepository abonnementRepository;
   private final AbonnementMapper abonnementMapper;
-  private final FormuleMapper formuleMapper;
   private final PeriodeMapper periodeMapper;
 
   public AbonnementDatabaseJdbc(
       AbonnementRepository abonnementRepository,
       AbonnementMapper abonnementMapper,
-      FormuleMapper formuleMapper,
       PeriodeMapper periodeMapper) {
     this.abonnementRepository = abonnementRepository;
     this.abonnementMapper = abonnementMapper;
-    this.formuleMapper = formuleMapper;
     this.periodeMapper = periodeMapper;
   }
 
@@ -56,7 +52,7 @@ public class AbonnementDatabaseJdbc implements AbonnementPersistence {
                 abonnement.getEmail(),
                 abonnement.getEstEtudiant(),
                 abonnement.getDateDeDebut(),
-                formuleMapper.convertirEnFormuleEntity(abonnement.getFormuleChoisie()),
+                abonnement.getFormuleChoisie().getId(),
                 abonnement.getPrix(),
                 abonnement.getPeriodes().stream()
                     .map(periodeMapper::convertirEnPeriodeEntity)

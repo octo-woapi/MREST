@@ -20,7 +20,7 @@ class EnvoyerUnEmailDeSouscriptionTest extends DatabaseRepositoryTest {
   void executer_devrait_renvoyer_la_souscription_cree_et_sauvegardee() {
     // Given
     String email = "user+souscription@example.net";
-    Formule formule = creerUneFormuleEnBase(uneFormule().avecId(null).build());
+    Formule formule = creerUneFormule(uneFormule().avecId(null).build());
     Abonnement abonnement =
         creerUnAbonnement.executer(unAbonnement().avecId(null).avecFormule(formule).build());
 

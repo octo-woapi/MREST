@@ -24,7 +24,7 @@ class RecuperDesSouscriptionAbonnementsTest extends DatabaseRepositoryTest {
   void executer_devrait_renvoyer_les_souscriptions_liees_a_un_abonnement() {
     // Given
     String email = "user+souscription@example.net";
-    Formule formule = creerUneFormuleEnBase(uneFormule().avecId(null).build());
+    Formule formule = creerUneFormule(uneFormule().avecId(null).build());
     Abonnement abonnement =
         creerUnAbonnement.executer(unAbonnement().avecId(null).avecFormule(formule).build());
 

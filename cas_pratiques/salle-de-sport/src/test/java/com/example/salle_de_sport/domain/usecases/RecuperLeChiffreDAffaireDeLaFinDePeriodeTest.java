@@ -23,10 +23,10 @@ class RecuperLeChiffreDAffaireDeLaFinDePeriodeTest extends DatabaseRepositoryTes
     double chiffreDAffaireAttendu = 150;
 
     Formule formule_150 =
-        creerUneFormuleEnBase(
+        creerUneFormule(
             uneFormule().avecId(null).avecNbrDeMois(12).avecPrixDeBase(150.0).build());
     Formule formule_100 =
-        creerUneFormuleEnBase(
+        creerUneFormule(
             uneFormule().avecId(null).avecNbrDeMois(6).avecPrixDeBase(100.0).build());
 
     creerUnAbonnement.executer(

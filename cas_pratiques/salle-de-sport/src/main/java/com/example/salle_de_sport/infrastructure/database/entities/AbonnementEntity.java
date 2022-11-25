@@ -6,7 +6,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +19,7 @@ public class AbonnementEntity {
     private Boolean isEtudiant;
     private String dateDeDebut;
     private Double prix;
-
-    @ManyToOne
-    @JoinColumn(name = "formule_choisie_id")
-    private FormuleEntity formuleEntityChoisie;
+    private Long formuleChoisieId;
 
     @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn(name="abonnement_id")
@@ -33,12 +29,12 @@ public class AbonnementEntity {
     }
 
     public AbonnementEntity(
-            String email, boolean isEtudiant, String dateDeDebut, FormuleEntity formuleEntityChoisie,
+            String email, boolean isEtudiant, String dateDeDebut, Long formuleChoisieId,
             Double prix, List<PeriodeEntity> periodeEntities) {
         this.email = email;
         this.isEtudiant = isEtudiant;
         this.dateDeDebut = dateDeDebut;
-        this.formuleEntityChoisie = formuleEntityChoisie;
+        this.formuleChoisieId = formuleChoisieId;
         this.prix = prix;
 
         periodeEntities.forEach(periodeEntity -> this.periodeEntities.add(periodeEntity));
@@ -46,13 +42,13 @@ public class AbonnementEntity {
 
     public AbonnementEntity(
             Long id, String email, boolean isEtudiant, String dateDeDebut,
-            FormuleEntity formuleEntityChoisie,
+            Long formuleChoisieId,
             Double prix, List<PeriodeEntity> periodeEntities) {
         this.id = id;
         this.email = email;
         this.isEtudiant = isEtudiant;
         this.dateDeDebut = dateDeDebut;
-        this.formuleEntityChoisie = formuleEntityChoisie;
+        this.formuleChoisieId = formuleChoisieId;
         this.prix = prix;
 
         periodeEntities.forEach(periodeEntity -> this.periodeEntities.add(periodeEntity));
@@ -90,8 +86,8 @@ public class AbonnementEntity {
         return this.periodeEntities;
     }
 
-    public FormuleEntity getFormuleEntityChoisie() {
-        return this.formuleEntityChoisie;
+    public Long getFormuleChoisieId() {
+        return this.formuleChoisieId;
     }
 
     @Override
@@ -100,12 +96,12 @@ public class AbonnementEntity {
         if (!(o instanceof AbonnementEntity)) return false;
         AbonnementEntity that = (AbonnementEntity) o;
         return getId().equals(that.getId()) && getEmail().equals(that.getEmail()) && isEtudiant.equals(that.estEtudiant())
-                && getDateDeDebut().equals(that.getDateDeDebut()) && getFormuleEntityChoisie().equals(that.getFormuleEntityChoisie()) && getPrix().equals(that.getPrix()) && getPeriodeEntities().equals(that.getPeriodeEntities());
+                && getDateDeDebut().equals(that.getDateDeDebut()) && getFormuleChoisieId().equals(that.getFormuleChoisieId()) && getPrix().equals(that.getPrix()) && getPeriodeEntities().equals(that.getPeriodeEntities());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getEmail(), isEtudiant, getDateDeDebut(), getFormuleEntityChoisie(), getPrix(), getPeriodeEntities());
+        return Objects.hash(getId(), getEmail(), isEtudiant, getDateDeDebut(), getFormuleChoisieId(), getPrix(), getPeriodeEntities());
     }
 
     @Override
@@ -116,7 +112,7 @@ public class AbonnementEntity {
                 ", isEtudiant=" + isEtudiant +
                 ", dateDeDebut='" + dateDeDebut + '\'' +
                 ", prix='" + prix + '\'' +
-                ", formuleEntityChoisie=" + formuleEntityChoisie +
+                ", formuleEntityChoisie=" + formuleChoisieId +
                 ", periodeEntities=" + this.periodeEntities +
                 '}';
     }

@@ -12,6 +12,6 @@ public class FormuleApiMapper {
   }
 
   public Formule convertirEnFormule(FormuleApi formuleApi) {
-    return new Formule(formuleApi.getId(), formuleApi.getPrixDeBase(), formuleApi.getNbrMois());
+    return new Formule(formuleApi.getId(), formuleApi.getPrixDeBase(), formuleApi.getNbrDeMois());
   }
 }

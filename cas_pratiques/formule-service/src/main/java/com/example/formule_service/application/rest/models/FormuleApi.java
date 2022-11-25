@@ -6,12 +6,12 @@ public class FormuleApi {
 
     private Long id;
     private Double prixDeBase;
-    private int nbrMois;
+    private int nbrDeMois;
 
-    public FormuleApi(Long id, Double prixDeBase, int nbrMois) {
+    public FormuleApi(Long id, Double prixDeBase, int nbrDeMois) {
         this.id = id;
         this.prixDeBase = prixDeBase;
-        this.nbrMois = nbrMois;
+        this.nbrDeMois = nbrDeMois;
     }
 
     public Long getId() {
@@ -22,8 +22,8 @@ public class FormuleApi {
         return prixDeBase;
     }
 
-    public int getNbrMois() {
-        return nbrMois;
+    public int getNbrDeMois() {
+        return nbrDeMois;
     }
 
     @Override
@@ -31,11 +31,11 @@ public class FormuleApi {
         if (this == o) return true;
         if (!(o instanceof FormuleApi)) return false;
         FormuleApi that = (FormuleApi) o;
-        return getNbrMois() == that.getNbrMois() && getId().equals(that.getId()) && getPrixDeBase().equals(that.getPrixDeBase());
+        return getNbrDeMois() == that.getNbrDeMois() && getId().equals(that.getId()) && getPrixDeBase().equals(that.getPrixDeBase());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getPrixDeBase(), getNbrMois());
+        return Objects.hash(getId(), getPrixDeBase(), getNbrDeMois());
     }
 }

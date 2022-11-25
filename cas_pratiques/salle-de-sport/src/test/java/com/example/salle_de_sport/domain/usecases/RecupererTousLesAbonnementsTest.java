@@ -4,9 +4,6 @@ import com.example.salle_de_sport.domain.models.Abonnement;
 import com.example.salle_de_sport.domain.models.Formule;
 import com.example.salle_de_sport.infrastructure.database.DatabaseRepositoryTest;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -23,7 +20,7 @@ class RecupererTousLesAbonnementsTest extends DatabaseRepositoryTest {
   @Test
   void executer_devrait_renvoyer_tous_les_abonnements_savegardees() {
     // Given
-    Formule formule = creerUneFormuleEnBase(uneFormule().avecId(null).build());
+    Formule formule = creerUneFormule(uneFormule().avecId(null).build());
 
     Abonnement premierAbonnement =
         creerUnAbonnement.executer(unAbonnement().avecId(null).avecFormule(formule).build());

@@ -1,7 +1,9 @@
 package com.example.salle_de_sport.infrastructure.database.mappers;
 
 import com.example.salle_de_sport.domain.models.Abonnement;
+import com.example.salle_de_sport.domain.models.Formule;
 import com.example.salle_de_sport.domain.models.Periode;
+import com.example.salle_de_sport.domain.usecases.RecupererUneFormule;
 import com.example.salle_de_sport.infrastructure.database.entities.AbonnementEntity;
 import org.springframework.stereotype.Component;
 
@@ -11,25 +13,26 @@ import java.util.stream.Collectors;
 @Component
 public class AbonnementMapper {
 
-  private final FormuleMapper formuleMapper;
   private final PeriodeMapper periodeMapper;
+  private final RecupererUneFormule recupererUneFormule;
 
-  public AbonnementMapper(FormuleMapper formuleMapper, PeriodeMapper periodeMapper) {
-    this.formuleMapper = formuleMapper;
+  public AbonnementMapper(PeriodeMapper periodeMapper, RecupererUneFormule recupererUneFormule) {
     this.periodeMapper = periodeMapper;
+    this.recupererUneFormule = recupererUneFormule;
   }
 
   public Abonnement convertirEnAbonnement(AbonnementEntity abonnementEntity) {
     List<Periode> periodes = abonnementEntity.getPeriodeEntities().stream()
         .map(this.periodeMapper::convertirEnPeriode)
         .collect(Collectors.toList());
+    Formule formuleChoisie = recupererUneFormule.executer(abonnementEntity.getFormuleChoisieId());
 
     Abonnement abonnement = new Abonnement(
         abonnementEntity.getId(),
         abonnementEntity.getEmail(),
         abonnementEntity.estEtudiant(),
         abonnementEntity.getDateDeDebut(),
-        this.formuleMapper.convertirEnFormule(abonnementEntity.getFormuleEntityChoisie()),
+        formuleChoisie,
         abonnementEntity.getPrix(),
         periodes);
     return abonnement;
@@ -41,7 +44,7 @@ public class AbonnementMapper {
         abonnement.getEmail(),
         abonnement.getEstEtudiant(),
         abonnement.getDateDeDebut(),
-        this.formuleMapper.convertirEnFormuleEntity(abonnement.getFormuleChoisie()),
+        abonnement.getFormuleChoisie().getId(),
         abonnement.getPrix(),
         abonnement.getPeriodes().stream().map(this.periodeMapper::convertirEnPeriodeEntity).toList());
   }

@@ -23,6 +23,7 @@ ext {
 	logbackContribVersion = '0.1.5'
 	lombokVersion = '1.18.24'
 	springdocVersion = '1.6.12'
+	mockwebserverVersion = '4.10.0'
 }
 
 dependencies {
@@ -42,7 +43,7 @@ dependencies {
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
-
+	testImplementation "com.squareup.okhttp3:mockwebserver:${mockwebserverVersion}"
 	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 }
 

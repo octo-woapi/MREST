@@ -33,13 +33,13 @@ public class JsonNodeUtil {
     return new FormuleApi(
         jsonNode.get("id").asLong(),
         jsonNode.get("prixDeBase").asDouble(),
-        jsonNode.get("nbrMois").asInt());
+        jsonNode.get("nbrDeMois").asInt());
   }
 
   private FormuleApi getFormuleApiFromJsonNode(final JsonNode jsonNode) {
     return new FormuleApi(
         jsonNode.get("id").asLong(),
         jsonNode.get("prixDeBase").asDouble(),
-        jsonNode.get("nbrMois").asInt());
+        jsonNode.get("nbrDeMois").asInt());
   }
 }

@@ -16,7 +16,7 @@ public class FormuleServicePersistanceWebClient implements FormulePersistence {
 
 	private static final String FORMULE_SERVICE_API_GET_FORMULE ="api/formules";
 
-	private final WebClient webClient = WebClient.create("http://localhost:8081/");
+	private final WebClient webClient;
 
 	@Override
 	public List<Formule> recupererToutesLesFormules() {
@@ -34,12 +34,14 @@ public class FormuleServicePersistanceWebClient implements FormulePersistence {
 
 	@Override
 	public Optional<Formule> recupererUneFormule(Long id) {
-		FormuleApi formuleApi = webClient
+
+	return Optional.of(FormuleApi.convertirEnFormule( webClient
 			.get()
 			.uri(FORMULE_SERVICE_API_GET_FORMULE + "/" + id)
 			.retrieve()
-			.bodyToMono(FormuleApi.class).block();
-		return Optional.of(FormuleApi.convertirEnFormule(formuleApi));
+			.bodyToMono(FormuleApi.class)
+			.block()));
+
 	}
 
 	@Override
@@ -50,14 +52,22 @@ public class FormuleServicePersistanceWebClient implements FormulePersistence {
 			.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
 			.bodyValue(formule)
 			.retrieve()
-			.toEntity(FormuleApi.class)
-			.block()
-			.getBody();
+			.bodyToMono(FormuleApi.class)
+			.block();
 		return FormuleApi.convertirEnFormule(formuleApi);
 	}
 
 	@Override
 	public Formule modifierUneFormule(Formule formule) {
-		return null;
+		Long idFormule = formule.getId();
+		Double nouveauxPrix = formule.getPrixDeBase();
+		FormuleApi formuleApi = webClient
+			.put()
+			.uri(FORMULE_SERVICE_API_GET_FORMULE + "/" + idFormule + "/prix")
+			.bodyValue(nouveauxPrix)
+			.retrieve()
+			.bodyToMono(FormuleApi.class)
+			.block();
+		return FormuleApi.convertirEnFormule(formuleApi);
 	}
 }

@@ -14,9 +14,9 @@ public class FormuleApi {
 
   private Long id;
   private Double prixDeBase;
-  private int nbrMois;
+  private int nbrDeMois;
 
   public static Formule convertirEnFormule(FormuleApi formuleApi) {
-    return new Formule(formuleApi.getId(), formuleApi.getPrixDeBase(), formuleApi.getNbrMois());
+    return new Formule(formuleApi.getId(), formuleApi.getPrixDeBase(), formuleApi.getNbrDeMois());
   }
 }
