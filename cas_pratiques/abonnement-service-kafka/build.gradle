@@ -1,0 +1,56 @@
+plugins {
+	id 'com.diffplug.spotless' version '6.11.0'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'java'
+	id 'org.springframework.boot' version "${globalSpringBootVersion}"
+}
+
+ext {
+	springBootVersion = "${globalSpringBootVersion}"
+	springKafkaVersion = '2.9.2'
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+group = 'com.exemple'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+dependencies {
+	implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
+	implementation "org.springframework.kafka:spring-kafka:${springKafkaVersion}"
+
+	testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+	testImplementation "org.springframework.kafka:spring-kafka-test:${springKafkaVersion}"
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+spotless {
+	enforceCheck false
+	encoding 'UTF-8'
+	java {
+		targetExclude "build/**"
+		googleJavaFormat()
+
+		toggleOffOn 'formatter:off', 'formatter:on'
+		trimTrailingWhitespace()
+		removeUnusedImports()
+
+		custom 'Lambda fix', { it.replace('} )', '})').replace('} ,', '},') }
+	}
+}
+
+wrapper {
+	gradleVersion = '7.6'
+}

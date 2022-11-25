@@ -325,5 +325,5 @@ gradle-app.setting
 # End of https://www.toptal.com/developers/gitignore/api/intellij,visualstudiocode,maven,gradle,node
 
 ### Mac ###
-.DS_Store
+**/.DS_Store
 
