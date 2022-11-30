@@ -1,0 +1,70 @@
+version: '3'
+
+services:
+  zookeeper:
+    container_name: zookeeper
+    image: wurstmeister/zookeeper
+    #platform: linux/amd64
+    ports:
+      - '2181:2181'
+    environment:
+      ZOO_MY_ID: 1
+    networks:
+      - kafka_net
+
+  kafka:
+    container_name: kafka
+    image: wurstmeister/kafka
+    # platform: linux/amd64
+    ports:
+      - '9092:9092'
+    expose:
+      - 29092
+    depends_on:
+      - zookeeper
+    restart: always
+    networks:
+      - kafka_net
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: ${HOST_IP}
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:29092,OUTSIDE://localhost:9092
+      KAFKA_ADVERTISED_PORT: 9092
+      KAFKA_LISTENERS: INSIDE://0.0.0.0:29092,OUTSIDE://0.0.0.0:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_BROKER_ID: 1
+
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui
+    # platform: linux/amd64
+    ports:
+      - '8090:8080'
+    restart: always
+    depends_on:
+      - zookeeper
+      - kafka
+    networks:
+      - kafka_net
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: =zookeeper:2181
+
+  db-formules:
+    container_name: db-formules
+    image: bitnami/postgresql:12-debian-9
+    # platform: linux/amd64
+    ports:
+      - '5470:5432'
+    volumes:
+      - ./postgres-conf:/bitnami/postgresql/conf
+    environment:
+      POSTGRESQL_DATABASE: db-formules
+      POSTGRESQL_USERNAME: admin
+      POSTGRESQL_PASSWORD: passwd
+
+networks:
+  kafka_net:
+    driver: bridge

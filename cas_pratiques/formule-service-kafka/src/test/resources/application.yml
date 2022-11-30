@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+      data-source-properties:
+        stringtype: unspecified
+  sql:
+    init:
+      platform: postgres
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        show_sql: false
+        use_sql_comments: false
+        format_sql: false
+        generate_statistics: false
+
+  liquibase:
+    change-log: classpath:/db/changelog/master.yaml
+    enabled: true

@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5470/db-formules
+    username: admin
+    password: passwd
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+      data-source-properties:
+        stringtype: unspecified
+
+  liquibase:
+    change-log: classpath:/db/changelog/master.yaml
+    enabled: true
+
+  kafka:
+    consumer:
+      group-id: consumer-loggers
+      auto-offset-reset: earliest
+    # change this property if you are using your own
+    # Kafka cluster or your Docker IP is different
+    bootstrap-servers: localhost:9092
+
+kafka-props:
+  topic-name: topic-formules
+  messages-per-request: 10
+
+server:
+  servlet:
+    context-path: /api

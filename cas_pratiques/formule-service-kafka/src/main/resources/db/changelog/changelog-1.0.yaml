@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: creation-table-formules
+      author: CHA
+      changes:
+        - createTable:
+            tableName: formules
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_formules
+              - column:
+                  name: prix_de_base
+                  type: DOUBLE
+              - column:
+                  name: nbr_de_mois
+                  type: INTEGER
