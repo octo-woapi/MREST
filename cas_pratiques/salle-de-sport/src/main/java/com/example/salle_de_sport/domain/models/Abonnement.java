@@ -70,7 +70,6 @@ public class Abonnement {
     var nbrDeMoisDansLaPeriodeCourante =
         Period.between(dateDeDebut.toLocalDate(), dateDeFin.unJourApres().toLocalDate())
             .getMonths();
-
     return new Periode(dateDeFin.unJourApres().toString(), nbrDeMoisDansLaPeriodeCourante);
   }
 }

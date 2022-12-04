@@ -1,13 +1,11 @@
 package com.example.salle_de_sport.domain.usecases;
 
 import com.example.salle_de_sport.domain.models.Formule;
-import com.example.salle_de_sport.infrastructure.database.DatabaseRepositoryTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
@@ -28,7 +26,10 @@ class ModifierLePrixDuneFormuleTest {
     // Given
     double nouveauPrix = 100.0;
     Formule formule = uneFormule().avecPrixDeBase(50.0).build();
+    Formule nouvelleFormule = uneFormule().avecPrixDeBase(nouveauPrix).build();
     when(formulePersistence.recupererUneFormule(formule.getId())).thenReturn(Optional.of(formule));
+    formule.setPrixDeBase(nouveauPrix);
+    when(formulePersistence.modifierUneFormule(formule)).thenReturn(nouvelleFormule);
 
 
     // When

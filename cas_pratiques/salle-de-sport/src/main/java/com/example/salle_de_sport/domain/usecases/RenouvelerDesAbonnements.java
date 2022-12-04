@@ -13,11 +13,12 @@ public class RenouvelerDesAbonnements {
   private final AbonnementPersistence abonnementPersistence;
 
   public List<Abonnement> executer(String dateDeRenouvellement) {
+
     List<Abonnement> abonnementsARenouveles =
         abonnementPersistence.recupererTousLesAbonements().stream()
             .filter(abonnement -> abonnement.seraFiniALaDateDonnee(dateDeRenouvellement))
             .map(Abonnement::renouveler)
-            .toList();
+                .toList();
 
     return abonnementPersistence.modifierDesAbonnements(abonnementsARenouveles);
   }

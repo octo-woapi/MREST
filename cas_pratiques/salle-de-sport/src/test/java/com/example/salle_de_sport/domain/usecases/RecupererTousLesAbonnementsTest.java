@@ -4,6 +4,10 @@ import com.example.salle_de_sport.domain.models.Abonnement;
 import com.example.salle_de_sport.domain.models.Formule;
 import com.example.salle_de_sport.infrastructure.database.DatabaseRepositoryTest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -11,21 +15,24 @@ import java.util.List;
 import static com.example.salle_de_sport.fixtures.AbonnementTestBuilder.unAbonnement;
 import static com.example.salle_de_sport.fixtures.FormuleTestBuilder.uneFormule;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
-class RecupererTousLesAbonnementsTest extends DatabaseRepositoryTest {
+@ExtendWith(MockitoExtension.class)
+class RecupererTousLesAbonnementsTest {
 
-  @Autowired private RecupererTousLesAbonnements recupererTousLesAbonnements;
-  @Autowired CreerUnAbonnement creerUnAbonnement;
+  @InjectMocks
+  private RecupererTousLesAbonnements recupererTousLesAbonnements;
+  @Mock
+  AbonnementPersistence abonnementPersistence;
 
   @Test
   void executer_devrait_renvoyer_tous_les_abonnements_savegardees() {
     // Given
-    Formule formule = creerUneFormule(uneFormule().avecId(null).build());
-
-    Abonnement premierAbonnement =
-        creerUnAbonnement.executer(unAbonnement().avecId(null).avecFormule(formule).build());
-    Abonnement deuxiemeAbonnement =
-        creerUnAbonnement.executer(unAbonnement().avecId(null).avecFormule(formule).build());
+    Formule formule = uneFormule().build();
+    Abonnement premierAbonnement = unAbonnement().avecFormule(formule).build();
+    Abonnement deuxiemeAbonnement = unAbonnement().avecFormule(formule).build();
+    List<Abonnement> abonnements = List.of(premierAbonnement, deuxiemeAbonnement);
+    when(abonnementPersistence.recupererTousLesAbonements()).thenReturn(abonnements);
 
     // When
     List<Abonnement> resultat = recupererTousLesAbonnements.executer();
