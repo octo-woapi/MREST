@@ -1,7 +1,6 @@
 package com.example.salle_de_sport.infrastructure.database.configuration;
 
 import com.example.salle_de_sport.domain.models.Abonnement;
-import com.example.salle_de_sport.domain.models.Formule;
 import com.example.salle_de_sport.domain.models.SouscriptionAbonnement;
 import com.example.salle_de_sport.domain.usecases.CreerUnAbonnement;
 import com.example.salle_de_sport.domain.usecases.CreerUneFormule;
@@ -22,7 +21,7 @@ public class DatabaseLoaderConfiguration {
 
   @Bean
   CommandLineRunner initDatabase(
-      CreerUneFormule creerUneFormule,
+
       RecupererToutesLesFormules recupererToutesLesFormules,
       CreerUnAbonnement creerUnAbonnement,
       EnvoyerUnEmailDeSouscription envoyerUnEmailDeSouscription) {
@@ -30,8 +29,6 @@ public class DatabaseLoaderConfiguration {
     AtomicInteger compteur = new AtomicInteger(1);
 
     return args -> {
-      creerUneFormule.executer(new Formule(50.0, 6));
-      creerUneFormule.executer(new Formule(100.0, 12));
 
       recupererToutesLesFormules
           .executer()
@@ -43,10 +40,10 @@ public class DatabaseLoaderConfiguration {
                 Abonnement abonnement =
                     creerUnAbonnement.executer(new Abonnement(email, true, "2022-01-01", formule));
                 LOGGER.info("Création de l'abonnement : " + abonnement);
-//
-//                SouscriptionAbonnement souscriptionAbonnement =
-//                    envoyerUnEmailDeSouscription.executer(abonnement.getId(), email);
-//                LOGGER.info("Création de la souscription :" + souscriptionAbonnement);
+
+                SouscriptionAbonnement souscriptionAbonnement =
+                    envoyerUnEmailDeSouscription.executer(abonnement.getId(), email);
+                LOGGER.info("Création de la souscription :" + souscriptionAbonnement);
               });
     };
   }
