@@ -9,32 +9,26 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 @Configuration
 public class DatabaseLoaderConfiguration {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseLoaderConfiguration.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseLoaderConfiguration.class);
 
-  @Bean
-  CommandLineRunner initDatabase(
-      CreerUneFormule creerUneFormule,
-      RecupererToutesLesFormules recupererToutesLesFormules) {
+	@Bean
+	CommandLineRunner initDatabase(
+		CreerUneFormule creerUneFormule,
+		RecupererToutesLesFormules recupererToutesLesFormules) {
 
-    AtomicInteger compteur = new AtomicInteger(1);
+		return args -> {
+			creerUneFormule.executer(new Formule(50.0, 6));
+			creerUneFormule.executer(new Formule(100.0, 12));
 
-    return args -> {
-      creerUneFormule.executer(new Formule(50.0, 6));
-      creerUneFormule.executer(new Formule(100.0, 12));
-
-      recupererToutesLesFormules
-          .executer()
-          .forEach(
-              formule -> {
-                LOGGER.info("Création de la formule :" + formule);
-
-                String email = String.format("user_%s@example.net", compteur.getAndAdd(1));
-              });
-    };
-  }
+			recupererToutesLesFormules
+				.executer()
+				.forEach(
+					formule -> {
+						LOGGER.info("Création de la formule :" + formule);
+					});
+		};
+	}
 }

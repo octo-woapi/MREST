@@ -1,19 +1,19 @@
 package com.example.salle_de_sport.infrastructure.database.entities;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
+@NoArgsConstructor
 public class PeriodeEntity {
 
   private @Id @GeneratedValue Long id;
   private String dateDeDebut;
   private String dateDeFin;
-
-  public PeriodeEntity() {
-  }
 
   public PeriodeEntity(Long id, String dateDeDebut, String dateDeFin) {
     this.id = id;

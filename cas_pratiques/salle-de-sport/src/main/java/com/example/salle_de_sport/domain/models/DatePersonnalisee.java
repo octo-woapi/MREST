@@ -1,11 +1,12 @@
 package com.example.salle_de_sport.domain.models;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
-
+@AllArgsConstructor
 @EqualsAndHashCode
 public final class DatePersonnalisee {
 
@@ -13,9 +14,6 @@ public final class DatePersonnalisee {
 
   private LocalDate date;
 
-  private DatePersonnalisee(LocalDate date) {
-    this.date = date;
-  }
 
   public DatePersonnalisee(String dateStr) {
     this.date = LocalDate.parse(dateStr, FORMATTER);

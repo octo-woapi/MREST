@@ -23,6 +23,6 @@ public class AbonnementApi {
     private FormuleApi formuleApiChoisie;
     private Double prix;
 
-    private List<PeriodeApi> periodeApis = new ArrayList<>();
+    private List<PeriodeApi> periodesApi = new ArrayList<>();
 
 }

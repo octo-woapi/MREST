@@ -31,7 +31,6 @@ public class Abonnement {
   private List<Periode> periodes = new ArrayList<>();
 
 
-
   public Abonnement(String email, boolean estEtudiant, String dateDeDebut, Formule formuleChoisie) {
     this.email = email;
     this.estEtudiant = estEtudiant;

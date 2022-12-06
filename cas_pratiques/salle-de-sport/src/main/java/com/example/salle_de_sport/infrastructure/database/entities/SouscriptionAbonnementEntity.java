@@ -1,5 +1,7 @@
 package com.example.salle_de_sport.infrastructure.database.entities;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -8,6 +10,7 @@ import javax.persistence.ManyToOne;
 import java.util.Objects;
 
 @Entity
+@NoArgsConstructor
 public class SouscriptionAbonnementEntity {
 
   private @Id @GeneratedValue Long id;

@@ -34,6 +34,6 @@ public class AbonnementApiMapper {
         abonnementApi.getDateDeDebut(),
         formuleApiMapper.convertirEnFormule(abonnementApi.getFormuleApiChoisie()),
         abonnementApi.getPrix(),
-        abonnementApi.getPeriodeApis().stream().map(periodeApiMapper::convertirEnPeriode).toList());
+        abonnementApi.getPeriodesApi().stream().map(periodeApiMapper::convertirEnPeriode).toList());
   }
 }

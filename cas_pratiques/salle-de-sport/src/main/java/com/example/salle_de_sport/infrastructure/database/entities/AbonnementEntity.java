@@ -1,5 +1,7 @@
 package com.example.salle_de_sport.infrastructure.database.entities;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,11 +14,12 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@NoArgsConstructor
 public class AbonnementEntity {
 
     private @Id @GeneratedValue Long id;
     private String email;
-    private Boolean isEtudiant;
+    private Boolean estEtudiant;
     private String dateDeDebut;
     private Double prix;
     private Long formuleChoisieId;
@@ -25,14 +28,12 @@ public class AbonnementEntity {
     @JoinColumn(name="abonnement_id")
     private List<PeriodeEntity> periodeEntities = new ArrayList<>();
 
-    public AbonnementEntity() {
-    }
 
     public AbonnementEntity(
-            String email, boolean isEtudiant, String dateDeDebut, Long formuleChoisieId,
-            Double prix, List<PeriodeEntity> periodeEntities) {
+        String email, boolean estEtudiant, String dateDeDebut, Long formuleChoisieId,
+        Double prix, List<PeriodeEntity> periodeEntities) {
         this.email = email;
-        this.isEtudiant = isEtudiant;
+        this.estEtudiant = estEtudiant;
         this.dateDeDebut = dateDeDebut;
         this.formuleChoisieId = formuleChoisieId;
         this.prix = prix;
@@ -41,12 +42,12 @@ public class AbonnementEntity {
     }
 
     public AbonnementEntity(
-            Long id, String email, boolean isEtudiant, String dateDeDebut,
-            Long formuleChoisieId,
-            Double prix, List<PeriodeEntity> periodeEntities) {
+        Long id, String email, boolean estEtudiant, String dateDeDebut,
+        Long formuleChoisieId,
+        Double prix, List<PeriodeEntity> periodeEntities) {
         this.id = id;
         this.email = email;
-        this.isEtudiant = isEtudiant;
+        this.estEtudiant = estEtudiant;
         this.dateDeDebut = dateDeDebut;
         this.formuleChoisieId = formuleChoisieId;
         this.prix = prix;
@@ -71,7 +72,7 @@ public class AbonnementEntity {
     }
 
     public Boolean estEtudiant() {
-        return this.isEtudiant;
+        return this.estEtudiant;
     }
 
     public String getDateDeDebut() {
@@ -95,13 +96,13 @@ public class AbonnementEntity {
         if (this == o) return true;
         if (!(o instanceof AbonnementEntity)) return false;
         AbonnementEntity that = (AbonnementEntity) o;
-        return getId().equals(that.getId()) && getEmail().equals(that.getEmail()) && isEtudiant.equals(that.estEtudiant())
+        return getId().equals(that.getId()) && getEmail().equals(that.getEmail()) && estEtudiant.equals(that.estEtudiant())
                 && getDateDeDebut().equals(that.getDateDeDebut()) && getFormuleChoisieId().equals(that.getFormuleChoisieId()) && getPrix().equals(that.getPrix()) && getPeriodeEntities().equals(that.getPeriodeEntities());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getEmail(), isEtudiant, getDateDeDebut(), getFormuleChoisieId(), getPrix(), getPeriodeEntities());
+        return Objects.hash(getId(), getEmail(), estEtudiant, getDateDeDebut(), getFormuleChoisieId(), getPrix(), getPeriodeEntities());
     }
 
     @Override
@@ -109,7 +110,7 @@ public class AbonnementEntity {
         return "AbonnementEntity{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
-                ", isEtudiant=" + isEtudiant +
+                ", isEtudiant=" + estEtudiant +
                 ", dateDeDebut='" + dateDeDebut + '\'' +
                 ", prix='" + prix + '\'' +
                 ", formuleEntityChoisie=" + formuleChoisieId +

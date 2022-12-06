@@ -1,22 +1,24 @@
 package com.example.salle_de_sport.domain.models;
 
-import java.util.Objects;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@EqualsAndHashCode
+@ToString
 public class Formule {
 
   private Long id;
   private Double prixDeBase;
   private int nbrDeMois;
 
-  public Formule() {}
 
   public Formule(Double prixDeBase, int nbrDeMois) {
-    this.prixDeBase = prixDeBase;
-    this.nbrDeMois = nbrDeMois;
-  }
-
-  public Formule(Long id, Double prixDeBase, int nbrDeMois) {
-    this.id = id;
     this.prixDeBase = prixDeBase;
     this.nbrDeMois = nbrDeMois;
   }
@@ -45,30 +47,4 @@ public class Formule {
     return nbrDeMois;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof Formule)) return false;
-    Formule formule = (Formule) o;
-    return prixDeBase == formule.prixDeBase
-        && nbrDeMois == formule.nbrDeMois
-        && id.equals(formule.id);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, prixDeBase, nbrDeMois);
-  }
-
-  @Override
-  public String toString() {
-    return "Formule{"
-        + "id="
-        + id
-        + ", prixDeBase="
-        + prixDeBase
-        + ", nbrDeMois="
-        + nbrDeMois
-        + '}';
-  }
 }

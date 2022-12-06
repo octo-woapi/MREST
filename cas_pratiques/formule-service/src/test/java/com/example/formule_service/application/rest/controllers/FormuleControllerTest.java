@@ -47,12 +47,13 @@ public class FormuleControllerTest {
   void recuperUneFormule_devrait_renvoyer_une_formule() throws Exception {
     // Given
     Formule formule = uneFormule().build();
+    Long idFormule= 1L;
     FormuleApi formuleApiAtttendue = uneFormuleApi().avecFormule(formule).build();
-    given(recupererUneFormule.executer(1L)).willReturn(formule);
+    given(recupererUneFormule.executer(idFormule)).willReturn(formule);
 
     // When
     MockHttpServletResponse response =
-        mockMvc.perform(get("/formules/1")).andReturn().getResponse();
+        mockMvc.perform(get("/formules/{id}", idFormule)).andReturn().getResponse();
 
     // Then
     assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());

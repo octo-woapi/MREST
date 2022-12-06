@@ -71,7 +71,7 @@ public class JsonNodeUtil {
         jsonNode.get("dateDeDebut").asText(),
         this.toFormuleApiChoisie(jsonNode.get("formuleApiChoisie")),
         jsonNode.get("prix").asDouble(),
-        this.toPeriodeApis(jsonNode.get("periodeApis")));
+        this.toPeriodeApis(jsonNode.get("periodesApi")));
   }
 
   private FormuleApi toFormuleApiChoisie(JsonNode jsonNode) {

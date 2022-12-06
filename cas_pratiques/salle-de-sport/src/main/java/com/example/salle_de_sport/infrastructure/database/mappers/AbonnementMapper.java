@@ -5,21 +5,19 @@ import com.example.salle_de_sport.domain.models.Formule;
 import com.example.salle_de_sport.domain.models.Periode;
 import com.example.salle_de_sport.domain.usecases.RecupererUneFormule;
 import com.example.salle_de_sport.infrastructure.database.entities.AbonnementEntity;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
+@AllArgsConstructor
 public class AbonnementMapper {
 
   private final PeriodeMapper periodeMapper;
   private final RecupererUneFormule recupererUneFormule;
 
-  public AbonnementMapper(PeriodeMapper periodeMapper, RecupererUneFormule recupererUneFormule) {
-    this.periodeMapper = periodeMapper;
-    this.recupererUneFormule = recupererUneFormule;
-  }
 
   public Abonnement convertirEnAbonnement(AbonnementEntity abonnementEntity) {
     List<Periode> periodes = abonnementEntity.getPeriodeEntities().stream()
