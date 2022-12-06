@@ -32,6 +32,9 @@
 Les éléments suivants doivent être installés sur le poste de travail
 - [OpenJDK 17](https://jdk.java.net/java-se-ri/17)
 
+## Dépendances
+
+- L'application `formule-service` doit être lancée
 ## Lancement du build applicatif via Gradle
 
 Lancer la commande suivante dans le dossier `salle-de-sport/`

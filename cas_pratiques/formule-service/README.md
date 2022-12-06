@@ -3,6 +3,7 @@
 ## Services
 
 - Créer des nouvelles formules, au mois ou à l'année, avec les règles suivantes
+     
     - un prix de base est fixé,
     - auquel on applique 30% de réduction si le client souscrit à un abonnement annuel
 
